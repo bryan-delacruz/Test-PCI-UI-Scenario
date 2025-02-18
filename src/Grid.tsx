@@ -4,6 +4,15 @@ import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
+const formatDate = (dateString: string): Date => {
+  return new Date(dateString);
+};
+
+const formattedData = data.map(item => ({
+  ...item,
+  discovery_date: formatDate(item.discovery_date)
+}));
+
 const columnDefs: ColDef[] = [
   { field: "designation", headerName: "Designation", sortable: true, filter: 'agTextColumnFilter'},
   { field: "discovery_date", headerName: "Discovery Date", sortable: true, filter: 'agDateColumnFilter' },
@@ -22,7 +31,7 @@ const NeoGrid = (): JSX.Element => {
     <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
       <h1>Near-Earth Object Overview</h1>
       <AgGridReact
-        rowData={data}
+        rowData={formattedData}
         columnDefs={columnDefs}
         rowGroupPanelShow={'always'}
       />
