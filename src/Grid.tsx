@@ -8,9 +8,16 @@ const formatDate = (dateString: string): Date => {
   return new Date(dateString);
 };
 
+const formatPotentiallyHazardous = (param: any): string => {
+  if (param === 'Y') return 'Yes';
+  if (param === 'N') return 'No';
+  return '';
+};
+
 const formattedData = data.map(item => ({
   ...item,
-  discovery_date: formatDate(item.discovery_date)
+  discovery_date: formatDate(item.discovery_date),
+  pha: formatPotentiallyHazardous(item.pha)
 }));
 
 const columnDefs: ColDef[] = [
